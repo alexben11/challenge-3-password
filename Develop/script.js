@@ -1,97 +1,75 @@
 // Assignment Code
-var specialCharacters = [" !#$%&()*+-./:;<=>?@^_`~"];
-var lowerCharacters = ["abcdefghijklmnopqrstuvwxyz"];
-var upperCharacters= ["ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
-var numbers = [0,1,2,3,4,5,6,7,8,9];
+// var values = "!#$%&()*+-./:;<=>?@^_`~abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-// var totalPasswordLength = [];
-// var totalCharacters = [];
-// var password = [];
+var special = "!#$%&()*+-./:;<=>?@^_`~";
+var lower = "abcdefghijklmnopqrstuvwxyz";
+var upper= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numbers = "0123456789";
+//var values ="";
 
 var generateBtn = document.querySelector("#generate");
 
+// Write password to the #password input
 function writePassword() {
-  
-    totalPasswordLength = prompt ("Select the length of the password between 8 and 128 characters.");
+var values = "";
+//Ask for user input for password length between 8 - 128 range
+var range = prompt ("Select the length of the password between 8 and 128");
 
-    //console.log (totalPasswordLength)
+if (range < 8 || range > 128) {
+  alert ("Please choose a password length between 8 and 128");
+  writePassword ();
 
-    if (totalPasswordLength < 8 || totalPasswordLength > 128) {
-      alert ("Please choose a password length between 8 and 128");
-      writePassword ();
-   
-    } else if (totalPasswordLength >= 8 && totalPasswordLength <= 128) {
-      alert ("You have chosen a password within range.");
-      
-    }
+} else if (range >= 8 && range <= 128) {
+  alert ("You have chosen a password within range.");
 
+}
 
-
-    var special = confirm ("Do you want to include special characters?");
-    if (special) {
-      totalCharacters = totalCharacters + specialCharacters;
-    
-    }
-    var lower = confirm ("Do you want to include lower case characters?");
-    if (lower) {
-      totalCharacters = totalCharacters + lowerCharacters;
-    }
-
-    var upper = confirm ("Do you want to include upper case characters?");
-    if (upper) {
-      totalCharacters = totalCharacters + upperCharacters;
-    }
-
-    var numbers = confirm ("Do you want to include numbers?");
-    if (numbers) {
-      totalCharacters = totalCharacters + numbers;
-      // return totalCharacters
-      
-    }
-     
-
-      //create the password by puting together totalCharacters and total password length.
-      for (var i = 0; i <totalPasswordLength; i++){
-        var randomNumber = Math.floor (Math.random() * totalCharacters.length)
-        password += totalCharacters [randomNumber];
-
-      }
-      
-      
-      // password = total password legth in size
-      // using total character array
-      //randomly pick a number to represent an item in the array
-      //stay within the password length
-
-      // password = totalCharacters [randomNumber];
-      // console.log (password)
-
-      // password = (totalCharacters [randomNumber + i])
-      // return password;
-      // console.log (password)
- }
-
-    var passwordText = document.querySelector("#password");
-  
-    passwordText.value = password;
+var specialCharacters = confirm ("Do you want to include special characters?");
+var lowerCharacters = confirm ("Do you want to include lower case characters?");
+var upperCharacters = confirm ("Do you want to include upper case characters?");
+var numbersCharacters = confirm ("Do you want to include numbers?");
 
 
+if (specialCharacters == true){
+  values = values + special;
+  console.log (values);
+
+} //else console.log (values);
+
+if (lowerCharacters == true) {
+  values = values + lower;
+  //console.log (values);
+
+} //else console.log (values);
+
+if (upperCharacters == true) {
+  values = values + upper;
+  //console.log (values);
+
+} //else console.log (values);
+
+if (numbersCharacters == true) {
+  values = values + numbers;
+  //console.log (values);
+} //else console.log (values);
+
+if (values.length == "") {
+  alert ("Please select at least one character");
+  return;
+} 
+
+console.log (values)
+
+var password = "";
+
+for (var i=0; i < range; i ++)
+password = password + values.charAt(Math.floor(Math.random() * Math.floor(values.length - 1)));
+
+//var password = generatePassword();
+var passwordText = document.querySelector("#password");
+passwordText.value = password;
+
+}
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-// // Notes 
-
-// RANDOM NUMBER GENERATOR
-// math.floor(12.384858) This will give you the integer = 12
-// math.random ()  Gives you a random number from 0 - 0.99
-// Put them together:
-// Use number to multiply. 10 gives you 9 random numbers
-// console.log(Math.floor(Math.random() *10)
-// (Math.floor(Math.random(0.9) *10)
-// (Math.floor (9))
-
-// function getRandomNumber (max) {
-//     return Math.flooor(Math.random() * (max+1))
-//     call it by saying
-//     console.log (getRandomNumber (2 or 3 or 7 or the maximum numbers you want maybe assign to index in array))
